@@ -1,13 +1,13 @@
 <script setup>
+import Chatbot from "./components/Chatbot.vue"
 </script>
-
 <template>
   <header>
     <h1>Chatbot</h1>
   </header>
 
   <main>
-    <p>This is a page</p>
+    <chatbot />
   </main>
 </template>
 
