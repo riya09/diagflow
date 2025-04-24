@@ -11,7 +11,9 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "pako": "^2.1.0",
+    "axios": "^1.8.4",
+    "d3": "^7.9.0",
+    "d3-graphviz": "^5.6.0",
     "pinia": "^3.0.1",
     "vue": "^3.5.13"
   },
@@ -23,6 +25,8 @@
     "eslint-plugin-vue": "~10.0.0",
     "globals": "^16.0.0",
     "prettier": "3.5.3",
+    "sass": "^1.87.0",
+    "sass-loader": "^16.0.5",
     "vite": "^6.2.4",
     "vite-plugin-vue-devtools": "^7.7.2"
   }
