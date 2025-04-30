@@ -4,10 +4,15 @@
       <div class="loading-spinner"></div>
       <div>Rendering diagram...</div>
     </div>
-
     <div v-if="errorMessage" class="error-message">
       {{ errorMessage }}
     </div>
+    <toolbar
+      v-if="selectedNode || selectedEdge"
+      :selection-type="selectedNode ? 'node' : 'edge'"
+      @update-text-style="updateTextStyle"
+      @update-node-style="updateNodeStyle"
+    />
     <div class="diagram-container" ref="diagramContainer">
       <!-- GraphViz -->
     </div>
@@ -18,6 +23,7 @@
 import { ref, onMounted, watch } from 'vue'
 import * as d3 from 'd3'
 import 'd3-graphviz'
+import Toolbar from './ToolBar.vue'
 
 const props = defineProps({
   blockdiagCode: {
@@ -30,7 +36,6 @@ const selectedNode = ref(null)
 const selectedEdge = ref(null)
 const isLoading = ref(false)
 const errorMessage = ref('')
-const nodeText = ref('')
 
 const configGraph = () => {
   const nodes = d3.selectAll('.node')
@@ -75,7 +80,6 @@ const renderDiagram = async (code) => {
       .fit(true)
       .width(width)
       .height(height)
-      .zoom(false)
       .renderDot(diagram)
       .on('end', () => {
         isLoading.value = false
@@ -102,13 +106,16 @@ const highlightSelectedNode = (element) => {
   element.insertBefore(rect, element.firstChild)
 }
 
-const updateText = () => {
-  selectedNode.value.selectAll('text').text(nodeText.value)
+const updateTextStyle = (style) => {
+  selectedNode.value.selectAll('text').attr(style.type, style.color)
 }
-
 const updateNodeStyle = (style) => {
-  selectedNode.value.selectAll('polygon, ellipse').attr("stroke", style.stroke)
-  selectedNode.value.selectAll('polygon, ellipse').attr("fill", style.fill)
+  if (selectedNode.value) {
+    selectedNode.value.selectAll('polygon, ellipse').attr(style.type, style.color)
+  }
+  if (selectedEdge.value) {
+    selectedEdge.value.selectAll('path, polygon').attr(style.type, style.color)
+  }
 }
 
 onMounted(() => {
