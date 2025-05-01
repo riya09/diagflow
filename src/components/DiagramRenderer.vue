@@ -109,17 +109,17 @@ const highlightSelectedNode = (element) => {
 
 const updateTextStyle = (style) => {
   if (style.type === 'text') {
-    selectedNode.value.selectAll('text').text(style.color)
+    selectedNode.value.selectAll('text').text(style.value)
   } else {
-    selectedNode.value.selectAll('text').attr(style.type, style.color)
+    selectedNode.value.selectAll('text').attr(style.type, style.value)
   }
 }
 const updateNodeStyle = (style) => {
   if (selectedNode.value) {
-    selectedNode.value.selectAll('polygon, ellipse').attr(style.type, style.color)
+    selectedNode.value.selectAll('polygon, ellipse').attr(style.type, style.value)
   }
   if (selectedEdge.value) {
-    selectedEdge.value.selectAll('path, polygon').attr(style.type, style.color)
+    selectedEdge.value.selectAll('path, polygon').attr(style.type, style.value)
   }
 }
 

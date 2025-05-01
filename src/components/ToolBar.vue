@@ -151,11 +151,11 @@ const nodeStyle = ref({
   text: ''
 })
 const popoverType = ref('')
-const setNodeStyle = (color, type) => {
-  emit('updateNodeStyle', { color, type })
+const setNodeStyle = (value, type) => {
+  emit('updateNodeStyle', { value, type })
 }
-const setTextStyle = (color, type) => {
-  emit('updateTextStyle', { color, type })
+const setTextStyle = (value, type) => {
+  emit('updateTextStyle', { value, type })
 }
 const setDashedStroke = () => {
   const isChecked = nodeStyle.value.dashed
@@ -163,7 +163,6 @@ const setDashedStroke = () => {
   setNodeStyle(isChecked ? 'round' : null, 'stroke-linecap')
 }
 const togglePopover = (type) => {
-  console.log(type)
   popoverType.value = popoverType.value === type ? '' : type
 }
 const setInitialStyle = (newNode) => {
