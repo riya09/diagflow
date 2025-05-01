@@ -44,12 +44,11 @@ const configGraph = () => {
   nodes.selectAll('polygon, ellipse').attr("fill", "white")
   centerDiagram()
   d3.select('#graph0 polygon:first-child').attr('fill', 'transparent')
-
-  d3.select(document).on("click mousedown", function(event) {
+  d3.select('.diagram-container').on('click mousedown', (event) => {
     event.preventDefault()
     event.stopPropagation()
-    selectedEdge.value = null
     selectedNode.value = null
+    selectedEdge.value = null
     highlightSelectedNode(null)
   })
 

@@ -204,6 +204,7 @@ watch(
   position: fixed;
   right: 12px;
   top: 10px;
+  z-index: 100;
   .options {
     display: flex;
     align-items: center;
