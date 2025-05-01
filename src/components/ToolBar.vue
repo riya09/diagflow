@@ -1,10 +1,16 @@
 <template>
   <div class="toolbar">
     <div class="options">
-      <svg width="20" height="20" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg
+        @click="togglePopover('node')"
+        width="20" height="20" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="25" cy="25" r="25" fill="#000"/>
       </svg>
-      <svg width="20" height="20" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg
+        v-if="selectionType === 'node'"
+        width="20" height="20" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg"
+        @click="togglePopover('text')"
+        >
         <path
           d="M14.264 15.2254L12.392 10.6545H6.032L4.184 15.2254H2L8.24 0.395996H10.256L16.472
           15.2254H14.264ZM9.992 4.5325C9.96 4.42219 9.888 4.22226 9.776 3.93271C9.68 3.64315
@@ -14,7 +20,10 @@
           fill="#0C0C0C"/>
         <rect y="16.9489" width="20" height="3.44709" fill="#212020"/>
       </svg>
-      <div class="style-popover">
+      <div
+        v-if="popoverType === 'node'"
+        class="style-popover"
+      >
         <div class="property">
           <span>Fill</span>
           <label for="fill-color">
@@ -70,6 +79,11 @@
             >
           </label>
         </div>
+      </div>
+      <div
+        v-if="popoverType === 'text'"
+        class="style-popover"
+      >
         <div class="property">
           <span>Font-size</span>
           <label for="stroke-width">
@@ -136,6 +150,7 @@ const nodeStyle = ref({
   fontSize: 14,
   text: ''
 })
+const popoverType = ref('')
 const setNodeStyle = (color, type) => {
   emit('updateNodeStyle', { color, type })
 }
@@ -146,6 +161,10 @@ const setDashedStroke = () => {
   const isChecked = nodeStyle.value.dashed
   setNodeStyle(isChecked ? '3' : null, 'stroke-dasharray')
   setNodeStyle(isChecked ? 'round' : null, 'stroke-linecap')
+}
+const togglePopover = (type) => {
+  console.log(type)
+  popoverType.value = popoverType.value === type ? '' : type
 }
 const setInitialStyle = (newNode) => {
   if (newNode) {
