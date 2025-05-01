@@ -42,6 +42,16 @@ const configGraph = () => {
   const nodes = d3.selectAll('.node')
   const edges = d3.selectAll('.edge')
   nodes.selectAll('polygon, ellipse').attr("fill", "white")
+  centerDiagram()
+  d3.select('#graph0 polygon:first-child').attr('fill', 'transparent')
+
+  d3.select(document).on("click mousedown", function(event) {
+    event.preventDefault()
+    event.stopPropagation()
+    selectedEdge.value = null
+    selectedNode.value = null
+    highlightSelectedNode(null)
+  })
 
   nodes.on('click mousedown', (event) => {
     event.preventDefault()
@@ -78,9 +88,9 @@ const renderDiagram = async (code) => {
     const diagram = code.replace(/\n/g, ' ')
     await d3.select('.diagram-container')
       .graphviz()
-      .fit(true)
       .width(width)
       .height(height)
+      .zoom(true)
       .renderDot(diagram)
       .on('end', () => {
         isLoading.value = false
@@ -95,16 +105,18 @@ const highlightSelectedNode = (element) => {
   if (boundedBox) {
     boundedBox.remove()
   }
-  const bbox = d3.select(element).node().getBBox()
-  const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
-  rect.setAttribute('x', bbox.x)
-  rect.setAttribute('y', bbox.y)
-  rect.setAttribute('width', bbox.width)
-  rect.setAttribute('height', bbox.height)
-  rect.setAttribute('fill', 'none')
-  rect.setAttribute('stroke', 'blue')
-  rect.setAttribute('id', 'boundary')
-  element.insertBefore(rect, element.firstChild)
+  if (element) {
+    const bbox = d3.select(element).node().getBBox()
+    const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
+    rect.setAttribute('x', bbox.x)
+    rect.setAttribute('y', bbox.y)
+    rect.setAttribute('width', bbox.width)
+    rect.setAttribute('height', bbox.height)
+    rect.setAttribute('fill', 'none')
+    rect.setAttribute('stroke', '#8fc9ff')
+    rect.setAttribute('id', 'boundary')
+    element.insertBefore(rect, element.firstChild)
+  }
 }
 
 const updateTextStyle = (style) => {
@@ -120,6 +132,21 @@ const updateNodeStyle = (style) => {
   }
   if (selectedEdge.value) {
     selectedEdge.value.selectAll('path, polygon').attr(style.type, style.value)
+  }
+}
+
+const centerDiagram = () => {
+  const svg = document.querySelector('.diagram-container svg')
+  const graph = d3.select('#graph0')
+  if (svg) {
+    const viewBox = svg.getAttribute('viewBox')
+    const [x, y, width, height] = viewBox.split(' ').map(Number)
+    const graphBBox = graph.node().getBBox()
+    const graphWidth = graphBBox.width
+    const graphHeight = graphBBox.height
+    const centreX = (width - graphWidth) / 2
+    const centreY = (height - graphHeight) / 2
+    svg.setAttribute('viewBox', `-${centreX} -${centreY} ${width} ${height}`)
   }
 }
 
@@ -141,12 +168,14 @@ watch(() => props.blockdiagCode, (newValue) => {
   height: 100%;
   min-height: 400px;
   border: 1px solid #ddd;
-  background-color: white;
+  background-color: #f7f9fb;
+  text-align: center;
   .diagram-container {
     width: 100%;
     height: 100%;
     min-height: 400px;
     overflow: auto;
+    text-align: center;
   }
 
   .loading-overlay {
