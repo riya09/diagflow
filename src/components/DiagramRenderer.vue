@@ -10,6 +10,7 @@
     <toolbar
       v-if="selectedNode || selectedEdge"
       :selection-type="selectedNode ? 'node' : 'edge'"
+      :node="selectedNode || selectedEdge"
       @update-text-style="updateTextStyle"
       @update-node-style="updateNodeStyle"
     />
@@ -107,7 +108,11 @@ const highlightSelectedNode = (element) => {
 }
 
 const updateTextStyle = (style) => {
-  selectedNode.value.selectAll('text').attr(style.type, style.color)
+  if (style.type === 'text') {
+    selectedNode.value.selectAll('text').text(style.color)
+  } else {
+    selectedNode.value.selectAll('text').attr(style.type, style.color)
+  }
 }
 const updateNodeStyle = (style) => {
   if (selectedNode.value) {
