@@ -84,9 +84,8 @@ const sendText = () => {
 <style lang="scss" scoped>
 .chatbox-wrapper {
   width: 100%;
-  height: 100%;
+  height: 100dvh;
   min-height: 600px;
-  border-radius: 1rem;
   background-color: #fff;
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
   position: relative;
@@ -98,7 +97,6 @@ const sendText = () => {
     font-size: 0.875rem;
     color: #fdfdfd;
     background: #638af8;
-    border-radius: 1rem 1rem 0 0;
     .arrows {
       background: transparent;
       border: none;
