@@ -27,15 +27,18 @@ import 'd3-graphviz'
 import Toolbar from './ToolBar.vue'
 
 const props = defineProps({
-  blockdiagCode: {
+  blockDiagCode: {
     type: String,
     default: null
+  },
+  isLoading: {
+    type: Boolean,
+    default: false
   }
 })
 
 const selectedNode = ref(null)
 const selectedEdge = ref(null)
-const isLoading = ref(false)
 const errorMessage = ref('')
 
 const configGraph = () => {
@@ -60,14 +63,6 @@ const configGraph = () => {
     highlightSelectedNode(event.currentTarget)
   })
 
-  nodes.on('mousemove', function () {
-    if (selectedNode.value) {
-      const bbox = d3.select(this).node().getBBox()
-      const x = bbox.x
-      const y = bbox.y
-    }
-  })
-
   edges.on("click mousedown", (event) => {
     event.preventDefault()
     event.stopPropagation()
@@ -79,7 +74,6 @@ const configGraph = () => {
 
 const renderDiagram = async (code) => {
   if (code) {
-    isLoading.value = true
     errorMessage.value = ''
     const width = document.querySelector('.diagram-container').offsetWidth
     const height = document.querySelector('.diagram-container').offsetHeight
@@ -92,7 +86,6 @@ const renderDiagram = async (code) => {
       .zoom(true)
       .renderDot(diagram)
       .on('end', () => {
-        isLoading.value = false
         configGraph()
       })
       .onerror(err => console.error('Graphviz layout error:', err))
@@ -112,7 +105,7 @@ const highlightSelectedNode = (element) => {
     rect.setAttribute('width', bbox.width)
     rect.setAttribute('height', bbox.height)
     rect.setAttribute('fill', 'none')
-    rect.setAttribute('stroke', '#8fc9ff')
+    rect.setAttribute('stroke', '#2696ff')
     rect.setAttribute('id', 'boundary')
     element.insertBefore(rect, element.firstChild)
   }
@@ -150,10 +143,10 @@ const centerDiagram = () => {
 }
 
 onMounted(() => {
-  renderDiagram(props.blockdiagCode)
+  renderDiagram(props.blockDiagCode)
 })
 
-watch(() => props.blockdiagCode, (newValue) => {
+watch(() => props.blockDiagCode, (newValue) => {
   if (newValue) {
     renderDiagram(newValue)
   }
