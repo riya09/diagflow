@@ -1,7 +1,10 @@
 <template>
   <div class="chatbox-wrapper">
     <div class="chat-count">
-      <button class="arrows">
+      <button
+        class="arrows"
+        @click="$emit('setCurrentHistory', -1)"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -18,8 +21,11 @@
           <polyline points="12 5 5 12 12 19"></polyline>
         </svg>
       </button>
-      <span>1/1</span>
-      <button class="arrows">
+      <span>{{ (store.currentChatIndex + 1) }} / {{ store.chatHistory.length || 1 }}</span>
+      <button
+        class="arrows"
+        @click="$emit('setCurrentHistory', 1)"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -64,21 +70,30 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { useChatHistoryStore } from '@/stores/chatHistory'
 
 const props = defineProps({
   isLoading: {
     type: Boolean,
     default: false
+  },
+  modelValue: {
+    type: String,
+    default: ''
   }
 })
 
-const emit = defineEmits(['convert'])
+const emit = defineEmits(['convert', 'setCurrentHistory'])
 
 const inputText = ref(props.modelValue)
+const store = useChatHistoryStore()
 const sendText = () => {
   emit('convert', inputText.value)
 }
+watch(() => props.modelValue, (newValue) => {
+  inputText.value = newValue
+})
 </script>
 
 <style lang="scss" scoped>
