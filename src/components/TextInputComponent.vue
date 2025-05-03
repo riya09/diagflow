@@ -41,6 +41,21 @@
         </svg>
       </button>
     </div>
+    <div
+      v-if="store.chatHistory.length === 1"
+      class="instruction">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="24" height="24">
+        <path fill="#000" d="M272 384c9.6-31.9 29.5-59.1 49.2-86.2c0 0 0 0 0 0c5.2-7.1 10.4-14.2 15.4-21.4c19.8-28.5 31.4-63
+        31.4-100.3C368 78.8 289.2 0 192 0S16 78.8 16 176c0 37.3 11.6 71.9 31.4 100.3c5 7.2 10.2
+        14.3 15.4 21.4c0 0 0 0 0 0c19.8 27.1 39.7 54.4 49.2 86.2l160 0zM192 512c44.2 0 80-35.8
+        80-80l0-16-160 0 0 16c0 44.2 35.8 80 80 80zM112 176c0 8.8-7.2 16-16 16s-16-7.2-16-16c0-61.9
+        50.1-112 112-112c8.8 0 16 7.2 16 16s-7.2 16-16 16c-44.2 0-80 35.8-80 80z"/>
+      </svg>
+      <p>
+        Write your text here. You can use the buttons to navigate through the chat history. Here is
+        an example of description of the text you can write.
+      </p>
+    </div>
     <textarea
       v-model="inputText"
       class="text-input"
@@ -99,30 +114,52 @@ watch(() => props.modelValue, (newValue) => {
 <style lang="scss" scoped>
 .chatbox-wrapper {
   width: 100%;
-  height: 100dvh;
+  height: 92dvh;
   min-height: 600px;
   background-color: #fff;
-  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  font-family: 'Poppins', sans-serif;
   position: relative;
+  .instruction {
+    padding: 0.5rem;
+    font-size: 12px;
+    color: #3d3c3cee;
+    background: #fdf59b;
+    border-radius: 0.5rem;
+    margin: 0.5rem;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    p {
+      margin: 0;
+      line-height: 20px;
+    }
+  }
   .chat-count {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     padding: 0.75rem 1rem;
     font-size: 0.875rem;
-    color: #fdfdfd;
-    background: #638af8;
+    color: #5273ce;
+    background: #ffffff;
+    border-bottom: 1px solid #e3e1e1;
     .arrows {
       background: transparent;
-      border: none;
+      border: 1px solid #5273ce;
+      border-radius: 2rem;
       display: grid;
       place-items: center;
       cursor: pointer;
       svg {
         width: 1.2rem;
         height: 1.2rem;
-        color: #fff;
+        color: #5273ce;
       }
+    }
+    span {
+      display: inline-block;
+      width: 80px;
+      text-align: center;
     }
   }
   textarea {
@@ -135,9 +172,11 @@ watch(() => props.modelValue, (newValue) => {
     padding: 1rem;
     overflow: auto;
     box-sizing: border-box;
-    font-family: Arial, 'sans-serif';
+    font-family: 'Poppins', sans-serif;
     font-weight: normal;
-    font-size: 1rem;
+    font-size: 0.85rem;
+    line-height: 26px;
+    color: #3d3c3cee;
   }
   .generate-btn {
     position: absolute;
@@ -156,6 +195,11 @@ watch(() => props.modelValue, (newValue) => {
     &:hover {
       transform: translate(0, -5px);
       background: #4565c0;
+    }
+    &:disabled {
+      background: #94b0ff;
+      cursor: not-allowed;
+      transform: translate(0, 0);
     }
   }
 }
