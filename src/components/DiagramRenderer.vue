@@ -100,10 +100,10 @@ const highlightSelectedNode = (element) => {
   if (element) {
     const bbox = d3.select(element).node().getBBox()
     const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
-    rect.setAttribute('x', bbox.x)
-    rect.setAttribute('y', bbox.y)
-    rect.setAttribute('width', bbox.width)
-    rect.setAttribute('height', bbox.height)
+    rect.setAttribute('x', bbox.x - 3)
+    rect.setAttribute('y', bbox.y - 3)
+    rect.setAttribute('width', bbox.width + 6)
+    rect.setAttribute('height', bbox.height + 6)
     rect.setAttribute('fill', 'none')
     rect.setAttribute('stroke', '#2696ff')
     rect.setAttribute('id', 'boundary')
@@ -169,7 +169,6 @@ watch(() => props.blockDiagCode, (newValue) => {
     overflow: auto;
     text-align: center;
   }
-
   .loading-overlay {
     position: absolute;
     top: 0;
@@ -182,33 +181,13 @@ watch(() => props.blockDiagCode, (newValue) => {
     justify-content: center;
     align-items: center;
     z-index: 10;
-  }
-
-  .loading-spinner {
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #3498db;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 2s linear infinite;
-    margin-bottom: 10px;
+    overflow: hidden;
   }
 
   .error-message {
     color: red;
     padding: 10px;
     text-align: center;
-  }
-}
-
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
   }
 }
 </style>
