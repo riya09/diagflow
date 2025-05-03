@@ -10,6 +10,9 @@ export const useChatHistoryStore = defineStore('chatHistory', {
       this.chatHistory.push(chat)
       this.currentChatIndex = this.chatHistory.length - 1
     },
+    updateChat(index, updatedChat) {
+      this.chatHistory[index] = updatedChat
+    },
     clearChat() {
       this.chatHistory = []
       this.currentChatIndex = 0
