@@ -136,9 +136,14 @@ const centerDiagram = () => {
     const graphBBox = graph.node().getBBox()
     const graphWidth = graphBBox.width
     const graphHeight = graphBBox.height
-    const centreX = (width - graphWidth) / 2
-    const centreY = (height - graphHeight) / 2
-    svg.setAttribute('viewBox', `-${centreX} -${centreY} ${width} ${height}`)
+    const scaleX = graphWidth > width ? width / graphWidth : 1
+    const scaleY = graphHeight > height ? height / graphHeight : 1
+    const scale = Math.min(scaleX, scaleY)
+    const newWidth = width / scale
+    const newHeight = height / scale
+    const centreX = -((newWidth - graphWidth) / 2)
+    const centreY = -((newHeight - graphHeight) / 2)
+    svg.setAttribute('viewBox', `${centreX} ${centreY} ${newWidth} ${newHeight}`)
   }
 }
 
