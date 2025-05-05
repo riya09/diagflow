@@ -114,12 +114,12 @@
             >
           </label>
         </div>
-        <div class="property">
+        <div class="property input-wrapper">
           <span>Text</span>
           <textarea
             v-model="nodeStyle.text"
-            class="text-input"
-            rows="2"
+            class="text-box"
+            rows="3"
             @input="setTextStyle(nodeStyle.text, 'text')"
           />
         </div>
@@ -198,12 +198,13 @@ watch(
 <style lang="scss" scoped>
 .toolbar {
   padding: 10px;
-  background-color: #f0f0f0;
+  background-color: #ffffff;
   border-radius: 5px;
   max-width: fit-content;
-  position: fixed;
-  right: 12px;
+  position: absolute;
+  left: 12px;
   top: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   z-index: 100;
   .options {
     display: flex;
@@ -213,14 +214,14 @@ watch(
     position: relative;
     .style-popover {
       position: absolute;
-      top: 40px;
-      left: -80px;
+      top: 34px;
+      left: -8px;
       width: 100%;
       height: 100%;
-      min-width: 130px;
-      min-height: 140px;
+      min-width: 160px;
+      min-height: 165px;
       background-color: #ffffff;
-      padding: 0.25rem;
+      padding: 0.5rem;
       border-radius: 0.25rem;
       border: 1px solid #ccc;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
@@ -230,11 +231,49 @@ watch(
         justify-content: space-between;
         gap: 10px;
         margin-bottom: 0.25rem;
-        border-bottom: 1px solid #ccc;
         padding: 0.25rem 0;
+        svg {
+          rect {
+            stroke: #838080;
+          }
+        }
         span {
           font-size: 0.75rem;
           color: #000;
+        }
+        .text-input {
+          outline: none;
+          border: 1px solid #ccc;
+          border-radius: 0.25rem;
+          width: 30px;
+          -webkit-appearance: none;
+          -moz-appearance:textfield;
+          appearance: none;
+          margin: 0;
+          text-align: center;
+        }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+        }
+        &:not(:last-of-type) {
+          border-bottom: 1px solid #e7e7e7;
+        }
+        &.input-wrapper {
+          align-items: flex-start;
+          flex-direction: column;
+          textarea {
+            box-sizing: border-box;
+            width: 100%;
+            height: 100%;
+            border: 1px solid #ccc;
+            border-radius: 0.25rem;
+            padding: 0.5rem;
+            resize: none;
+            outline: none;
+            font-size: 0.75rem;
+            color: #000;
+          }
         }
       }
     }

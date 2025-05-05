@@ -117,7 +117,6 @@ watch(() => props.modelValue, (newValue) => {
   height: 92dvh;
   min-height: 600px;
   background-color: #fff;
-  font-family: 'Poppins', sans-serif;
   position: relative;
   .instruction {
     padding: 0.5rem;
