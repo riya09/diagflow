@@ -17,11 +17,17 @@
     <div class="diagram-container" ref="diagramContainer">
       <!-- GraphViz -->
     </div>
+    <button
+      class="download-btn"
+      @click="downloadSVG"
+    >
+      Download SVG
+    </button>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, render } from 'vue'
 import * as d3 from 'd3'
 import 'd3-graphviz'
 import Toolbar from './ToolBar.vue'
@@ -40,6 +46,7 @@ const props = defineProps({
 const selectedNode = ref(null)
 const selectedEdge = ref(null)
 const errorMessage = ref('')
+const initialTransform = ref('')
 
 const configGraph = () => {
   const nodes = d3.selectAll('.node')
@@ -130,6 +137,7 @@ const updateNodeStyle = (style) => {
 const centerDiagram = () => {
   const svg = document.querySelector('.diagram-container svg')
   const graph = d3.select('#graph0')
+  initialTransform.value = graph.attr('transform')
   if (svg) {
     const viewBox = svg.getAttribute('viewBox')
     const [x, y, width, height] = viewBox.split(' ').map(Number)
@@ -145,6 +153,27 @@ const centerDiagram = () => {
     const centreY = -((newHeight - graphHeight) / 2)
     svg.setAttribute('viewBox', `${centreX} ${centreY} ${newWidth} ${newHeight}`)
   }
+}
+
+const downloadSVG = () => {
+  const svgElement = d3.select('.diagram-container svg').node()
+  const graph = d3.select('#graph0')
+  graph.attr('transform', initialTransform.value)
+
+  const svgString = new XMLSerializer().serializeToString(svgElement)
+  const blob = new Blob([svgString], { type: 'image/svg+xml' })
+  const url = URL.createObjectURL(blob)
+
+  const link = d3.create('a')
+    .attr('href', url)
+    .attr('download', `diagram-${(Math.random() + 1).toString(36).substring(7)}.svg`)
+    .node()
+
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+
+  URL.revokeObjectURL(url)
 }
 
 onMounted(() => {
@@ -167,12 +196,25 @@ watch(() => props.blockDiagCode, (newValue) => {
   border: 1px solid #ddd;
   background-color: #f7f9fb;
   text-align: center;
+  position: relative;
   .diagram-container {
     width: 100%;
     height: 100%;
     min-height: 400px;
     overflow: auto;
     text-align: center;
+  }
+  .download-btn {
+    margin: 10px;
+    padding: 8px 12px;
+    background-color: #5273ce;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 10px;
+    right: 0;
   }
   .loading-overlay {
     position: absolute;
