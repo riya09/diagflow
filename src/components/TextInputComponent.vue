@@ -42,7 +42,7 @@
       </button>
     </div>
     <div
-      v-if="store.chatHistory.length === 1"
+      v-if="store.chatHistory.length <= 1"
       class="instruction">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="24" height="24">
         <path fill="#000" d="M272 384c9.6-31.9 29.5-59.1 49.2-86.2c0 0 0 0 0 0c5.2-7.1 10.4-14.2 15.4-21.4c19.8-28.5 31.4-63
@@ -52,8 +52,8 @@
         50.1-112 112-112c8.8 0 16 7.2 16 16s-7.2 16-16 16c-44.2 0-80 35.8-80 80z"/>
       </svg>
       <p>
-        Write your text here. You can use the buttons to navigate through the chat history. Here is
-        an example of description of the text you can write.
+        Convert your text int flowchart. You can use the buttons to navigate through the chat history.
+        Here is an example of description of the text you can write.
       </p>
     </div>
     <textarea
