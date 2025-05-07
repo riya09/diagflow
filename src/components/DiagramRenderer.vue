@@ -27,7 +27,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch, render } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import * as d3 from 'd3'
 import 'd3-graphviz'
 import Toolbar from './ToolBar.vue'
@@ -156,10 +156,20 @@ const centerDiagram = () => {
 }
 
 const downloadSVG = () => {
-  const svgElement = d3.select('.diagram-container svg').node()
   const graph = d3.select('#graph0')
-  graph.attr('transform', initialTransform.value)
+  const graphBBox = graph.node().getBBox()
+  const svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+  const svgSelection = d3.select(svgElement)
+    .attr('xmlns', 'http://www.w3.org/2000/svg')
+    .attr('width', graphBBox.width)
+    .attr('height', graphBBox.height)
+    .attr('viewBox', `${graphBBox.x} ${graphBBox.y} ${graphBBox.width} ${graphBBox.height}`)
 
+  const clonedGraph = graph.node().cloneNode(true)
+
+  d3.select(clonedGraph).attr('transform', null)
+
+  svgSelection.node().appendChild(clonedGraph)
   const svgString = new XMLSerializer().serializeToString(svgElement)
   const blob = new Blob([svgString], { type: 'image/svg+xml' })
   const url = URL.createObjectURL(blob)
