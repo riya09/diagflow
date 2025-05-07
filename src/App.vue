@@ -1,16 +1,11 @@
-<script setup>
-import Chatbot from "./components/Chatbot.vue"
-</script>
 <template>
-  <header>
-    <h1>Chatbot</h1>
-  </header>
-
-  <main>
-    <chatbot />
-  </main>
+  <div class="app-container">
+    <Header />
+    <container />
+  </div>
 </template>
 
-<style scoped>
-
-</style>
+<script setup>
+import Header from './components/Header.vue'
+import Container from './components/DiagFlowContainer.vue'
+</script>
