@@ -52,7 +52,7 @@
         50.1-112 112-112c8.8 0 16 7.2 16 16s-7.2 16-16 16c-44.2 0-80 35.8-80 80z"/>
       </svg>
       <p>
-        Convert your text int flowchart. You can use the buttons to navigate through the chat history.
+        Convert your text into flowchart. You can use the buttons to navigate through the chat history.
         Here is an example of description of the text you can write.
       </p>
     </div>
@@ -163,7 +163,7 @@ watch(() => props.modelValue, (newValue) => {
   }
   textarea {
     width: 100%;
-    height: calc(100% - 60px);
+    height: calc(80dvh - 60px);
     border: none;
     resize: none;
     outline: none;

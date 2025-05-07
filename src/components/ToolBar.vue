@@ -159,7 +159,7 @@ const setTextStyle = (value, type) => {
 }
 const setDashedStroke = () => {
   const isChecked = nodeStyle.value.dashed
-  setNodeStyle(isChecked ? '3' : null, 'stroke-dasharray')
+  setNodeStyle(isChecked ? '2' : null, 'stroke-dasharray')
   setNodeStyle(isChecked ? 'round' : null, 'stroke-linecap')
 }
 const togglePopover = (type) => {

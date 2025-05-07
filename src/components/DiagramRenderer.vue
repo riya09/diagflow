@@ -40,12 +40,15 @@ const props = defineProps({
   isLoading: {
     type: Boolean,
     default: false
+  },
+  errorMessage: {
+    type: String,
+    default: ''
   }
 })
 
 const selectedNode = ref(null)
 const selectedEdge = ref(null)
-const errorMessage = ref('')
 const initialTransform = ref('')
 
 const configGraph = () => {
@@ -81,7 +84,6 @@ const configGraph = () => {
 
 const renderDiagram = async (code) => {
   if (code) {
-    errorMessage.value = ''
     const width = document.querySelector('.diagram-container').offsetWidth
     const height = document.querySelector('.diagram-container').offsetHeight
 
