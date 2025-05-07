@@ -1,14 +1,19 @@
-# chatbot
+# DiagFlow
 
-This template should help get you started developing with Vue 3 in Vite.
+DiagFlow allows you to create diagrams/flowcharts easily using natural language. It uses Google's Gemma 3 (27B) model via the OpenRouter API.
 
-## Recommended IDE Setup
+## Key Features
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- Convert text descriptions into diagrams
+- Modify color and text of each shapes.
+- Download diagram as SVG
+- Multiple persistent chats and diagrams with browser-based storage
 
-## Customize configuration
+## Tech Stack
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+- Vue 3 with Vite
+- d3.js and d3-graphviz for diagram rendering
+- OpenRouter API for AI model access
 
 ## Project Setup
 
