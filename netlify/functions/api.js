@@ -11,7 +11,6 @@ export async function handler(event, context) {
     }
   }
 
-  // Parse request body
   let requestBody
   try {
     requestBody = JSON.parse(event.body)
