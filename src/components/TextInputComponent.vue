@@ -115,7 +115,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['convert', 'setCurrentHistory'])
+const emit = defineEmits(['convert', 'setCurrentHistory', 'newChat'])
 
 const inputText = ref(props.modelValue)
 const store = useChatHistoryStore()
@@ -149,32 +149,59 @@ watch(() => props.modelValue, (newValue) => {
       line-height: 20px;
     }
   }
-  .chat-count {
+  .chat-header {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
+    border-bottom: 1px solid #e3e1e1;
     padding: 0.75rem 1rem;
     font-size: 0.875rem;
     color: #5273ce;
     background: #ffffff;
-    border-bottom: 1px solid #e3e1e1;
-    .arrows {
-      background: transparent;
-      border: 1px solid #5273ce;
-      border-radius: 2rem;
-      display: grid;
-      place-items: center;
+    .new-chat-btn {
+      background: linear-gradient(45deg, #9ab5ff 0%, #4469d0 100%);
+      border: none;
+      color: #fff;
       cursor: pointer;
+      padding: 0.35rem 1rem;
+      border-radius: 0.25rem;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 3px, rgba(0, 0, 0, 0.23) 0px 3px 3px;
+      transition: box-shadow 0.15s ease-in;
+      &:hover {
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 3px, rgba(0, 0, 0, 0.1) 0px 0 0;
+      }
       svg {
-        width: 1.2rem;
-        height: 1.2rem;
-        color: #5273ce;
+        width: 1rem;
+        height: 1rem;
+        margin-right: 0.15rem;
       }
     }
-    span {
-      display: inline-block;
-      width: 80px;
-      text-align: center;
+    .chat-count {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      .arrows {
+        background: transparent;
+        border: 1px solid #5273ce;
+        border-radius: 2rem;
+        display: grid;
+        place-items: center;
+        cursor: pointer;
+        svg {
+          width: 1.2rem;
+          height: 1.2rem;
+          color: #5273ce;
+        }
+      }
+      span {
+        display: inline-block;
+        width: 80px;
+        text-align: center;
+      }
     }
   }
   textarea {
