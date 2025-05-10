@@ -43,16 +43,17 @@ const convertTextToBlockDiag = async (text) => {
   }
   const code = await convertNLToBlockDiag(text)
   if (code.result) {
-    blockDiagCode.value = code.result
+    const result = code.result
+    blockDiagCode.value = result
     if (text.trim() === store.chatHistory[store.currentChatIndex].prompt) {
       store.updateChat(store.currentChatIndex, {
         prompt: text,
-        blockDiagCode: code.result,
+        blockDiagCode: result,
       })
     } else {
       store.addChat({
         prompt: text,
-        blockDiagCode: blockDiagCode.value,
+        blockDiagCode: result,
       })
     }
   } else {
