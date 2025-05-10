@@ -7,6 +7,7 @@
           :is-loading="isLoading"
           @convert="convertTextToBlockDiag"
           @set-current-history="updateChatHistory"
+          @new-chat="addNewChat"
         />
       </div>
       <div class="editor-section">
@@ -60,6 +61,19 @@ const convertTextToBlockDiag = async (text) => {
     errorMessage.value = code.error || 'An error occurred while converting the text'
   }
   isLoading.value = false
+}
+
+const addNewChat = () => {
+  const lastChat = store.chatHistory[store.chatHistory.length - 1]
+  if (lastChat.prompt !== '' && lastChat.blockDiagCode !== '') {
+    store.addChat({
+      prompt: '',
+      blockDiagCode: ''
+    })
+  }
+  store.setCurrentChatIndex(store.chatHistory.length - 1)
+  naturalLanguageInput.value = ''
+  blockDiagCode.value = ''
 }
 
 const updateChatHistory = (increment) => {
