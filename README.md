@@ -1,6 +1,9 @@
-# DiagFlow
+# DiagFlow AI
 
 DiagFlow allows you to create diagrams/flowcharts easily using natural language. It uses Google's Gemma 3 (27B) model via the OpenRouter API.
+
+<img width="100%" alt="Screenshot 2025-05-10 at 5 42 58 PM" src="https://github.com/user-attachments/assets/4f9900a0-9d3a-4e9d-a861-eb661b90a10c" />
+
 
 ## Key Features
 
