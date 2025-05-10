@@ -18,6 +18,7 @@
       <!-- GraphViz -->
     </div>
     <button
+      v-if="blockDiagCode"
       class="download-btn"
       @click="downloadSVG"
     >
