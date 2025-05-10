@@ -47,7 +47,7 @@ const convertTextToBlockDiag = async (text) => {
     if (text.trim() === store.chatHistory[store.currentChatIndex].prompt) {
       store.updateChat(store.currentChatIndex, {
         prompt: text,
-        blockDiagCode: code,
+        blockDiagCode: code.result,
       })
     } else {
       store.addChat({
