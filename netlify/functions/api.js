@@ -33,7 +33,7 @@ export async function handler(event, context) {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${process.env.VITE_OPEN_ROUTER_API_KEY}`,
-        'HTTP-Referer': 'https://your-site.netlify.app', // Replace with your actual domain
+        'HTTP-Referer': window.location.origin,
         'X-Title': 'Digraph Converter',
       },
       body: JSON.stringify({
@@ -46,16 +46,16 @@ export async function handler(event, context) {
             text. The output should start with "digraph { and end with }" For multiple steps,
             use different shapes and connections to represent the described diagram.
             Use appropriate shapes, connections, and labels to represent the described diagram.
-            Don't use style inside code`
+            Don't use style inside code`,
           },
           {
             role: 'user',
-            content: `Convert this description to digraph syntax: "${requestBody.description}"`
-          }
+            content: `Convert this description to digraph syntax: "${requestBody.description}"`,
+          },
         ],
         temperature: 0.2,
-        max_tokens: 2000
-      })
+        max_tokens: 2000,
+      }),
     })
 
     const data = await response.json()
