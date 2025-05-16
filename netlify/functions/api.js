@@ -33,7 +33,7 @@ export async function handler(event, context) {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${process.env.VITE_OPEN_ROUTER_API_KEY}`,
-        'HTTP-Referer': window.location.origin,
+        'HTTP-Referer': 'https://diagflowai.netlify.app/',
         'X-Title': 'Digraph Converter',
       },
       body: JSON.stringify({
