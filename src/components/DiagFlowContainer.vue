@@ -52,10 +52,18 @@ const convertTextToBlockDiag = async (text) => {
         blockDiagCode: result,
       })
     } else {
-      store.addChat({
-        prompt: text,
-        blockDiagCode: result,
-      })
+      const lastChat = store.chatHistory[store.chatHistory.length - 1]
+      if (lastChat.prompt === '' && lastChat.blockDiagCode === '') {
+        store.updateChat(store.chatHistory.length - 1, {
+          prompt: text,
+          blockDiagCode: result,
+        })
+      } else {
+        store.addChat({
+          prompt: text,
+          blockDiagCode: result,
+        })
+      }
     }
   } else {
     errorMessage.value = code.error || 'An error occurred while converting the text'
